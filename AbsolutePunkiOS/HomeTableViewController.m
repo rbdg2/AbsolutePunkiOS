@@ -17,6 +17,8 @@
 @property (nonatomic, strong) NSString* currentElement;
 @property (nonatomic, strong) NSMutableString *currentTitle;
 @property (nonatomic, strong) NSMutableString *currentLink;
+@property (nonatomic, strong) NSMutableString *currentDescription;
+@property (nonatomic, strong) NSMutableString *currentPubDate;
 @end
 
 @implementation HomeTableViewController
@@ -24,6 +26,7 @@
 #pragma mark - ViewController Load Methods
 - (void)viewDidLoad {
     [super viewDidLoad];
+//    self.navigationController.navigationBar.barTintColor = [UIColor redColor];
     
     NSString *urlString = @"http://www.absolutepunk.net/rss";
     [self parseXMLFileAtURL:urlString];
@@ -71,6 +74,8 @@
         self.item = [[NSMutableDictionary alloc] init];
         self.currentTitle = [[NSMutableString alloc] init];
         self.currentLink = [[NSMutableString alloc] init];
+        self.currentDescription = [[NSMutableString alloc] init];
+        self.currentPubDate = [[NSMutableString alloc] init];
     }
 }
 
@@ -80,6 +85,10 @@
         [self.currentTitle appendString:string];
     } else if([self.currentElement isEqualToString:@"link"]) {
         [self.currentLink appendString:string];
+    } else if ([self.currentElement isEqualToString:@"description"]) {
+        [self.currentDescription appendString:string];
+    } else if ([self.currentElement isEqualToString:@"pubDate"]) {
+        [self.currentPubDate appendString:string];
     }
 }
 
@@ -88,7 +97,9 @@
     if ([elementName isEqualToString:@"item"]) {
         [self.item setObject:self.currentTitle forKey:@"title"];
         [self.item setObject:self.currentLink  forKey:@"link"];
-
+        [self.item setObject:self.currentDescription forKey:@"description"];
+        [self.item setObject:self.currentPubDate forKey:@"pubDate"];
+        
         [self.items addObject:[self.item copy]];
         NSLog(@"adding Item: %@", self.currentTitle);
     }
@@ -107,6 +118,7 @@
     
     NSDictionary *item = self.items[indexPath.row];
     cell.textLabel.text = (NSString *)[item objectForKey:@"title"];
+    cell.detailTextLabel.text = (NSString *)[item objectForKey:@"pubDate"];
     return cell;
 }
 
@@ -115,6 +127,7 @@
 {
     NSDictionary *item = self.items[indexPath.row];
     NSString *urlString = (NSString *)[item objectForKey:@"link"];
+    urlString = [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     
     NSLog(@"redirecting to URL: %@", urlString);
   
