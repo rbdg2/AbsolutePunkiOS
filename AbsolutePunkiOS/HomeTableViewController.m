@@ -114,7 +114,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"newsCell"];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"itemsCell"];
     
     NSDictionary *item = self.items[indexPath.row];
     cell.textLabel.text = (NSString *)[item objectForKey:@"title"];
