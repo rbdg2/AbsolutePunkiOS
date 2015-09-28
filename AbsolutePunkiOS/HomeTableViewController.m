@@ -7,6 +7,7 @@
 //
 
 #import "HomeTableViewController.h"
+#import "KeyParser.h"
 
 @interface HomeTableViewController () <NSXMLParserDelegate>
 @property (nonatomic, strong) NSMutableArray *items;
@@ -14,7 +15,7 @@
 //XML Parsing Properties
 @property (nonatomic, strong) NSXMLParser *parser;
 @property (nonatomic, strong) NSMutableDictionary *item;
-@property (nonatomic, strong) NSString* currentElement;
+@property (nonatomic, strong) NSString *currentElement;
 @property (nonatomic, strong) NSMutableString *currentTitle;
 @property (nonatomic, strong) NSMutableString *currentLink;
 @property (nonatomic, strong) NSMutableString *currentDescription;
@@ -26,17 +27,12 @@
 #pragma mark - ViewController Load Methods
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    self.navigationController.navigationBar.barTintColor = [UIColor redColor];
     
-    NSString *urlString = @"http://www.absolutepunk.net/rss";
-    [self parseXMLFileAtURL:urlString];
-    
+    [self parseXMLFileAtURL:[NSURL URLWithString:KEY_URL_RSS]];
 }
 
 #pragma mark - NSXMLParser Method
-- (void)parseXMLFileAtURL:(NSString *)urlString {
-    NSURL *url = [NSURL URLWithString:urlString];
-    
+- (void)parseXMLFileAtURL:(NSURL *)url {    
     self.parser = [[NSXMLParser alloc] initWithContentsOfURL:url];
     [self.parser setDelegate:self];
     
@@ -55,12 +51,6 @@
     NSLog(@"APiOS parserDidStartDocument");
 }
 
-- (void)parserDidEndDocument:(NSXMLParser *)parser
-{
-    [self.tableView reloadData];
-    NSLog(@"APiOS parserDidEndDocument");
-}
-
 - (void)parser:(NSXMLParser *)parser parseErrorOccurred:(NSError *)parseError
 {
     NSLog(@"APiOS parseErrorOccurred %@", parseError);
@@ -70,7 +60,7 @@
 {
     self.currentElement = [elementName copy];
     
-    if ([elementName isEqualToString:@"item"]) {
+    if ([elementName isEqualToString:KEY_STR_ITEM]) {
         self.item = [[NSMutableDictionary alloc] init];
         self.currentTitle = [[NSMutableString alloc] init];
         self.currentLink = [[NSMutableString alloc] init];
@@ -81,29 +71,37 @@
 
 - (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string
 {
-    if ([self.currentElement isEqualToString:@"title"]) {
+    if ([self.currentElement isEqualToString:KEY_STR_TITLE]) {
         [self.currentTitle appendString:string];
-    } else if([self.currentElement isEqualToString:@"link"]) {
+        
+    } else if([self.currentElement isEqualToString:KEY_STR_LINK]) {
         [self.currentLink appendString:string];
-    } else if ([self.currentElement isEqualToString:@"description"]) {
+        
+    } else if ([self.currentElement isEqualToString:KEY_STR_DESCRIPTION]) {
         [self.currentDescription appendString:string];
-    } else if ([self.currentElement isEqualToString:@"pubDate"]) {
+        
+    } else if ([self.currentElement isEqualToString:KEY_STR_PUBDATE]) {
         [self.currentPubDate appendString:string];
     }
 }
 
 - (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName
 {
-    if ([elementName isEqualToString:@"item"]) {
-        [self.item setObject:self.currentTitle forKey:@"title"];
-        [self.item setObject:self.currentLink  forKey:@"link"];
-        [self.item setObject:self.currentDescription forKey:@"description"];
-        [self.item setObject:self.currentPubDate forKey:@"pubDate"];
+    if ([elementName isEqualToString:KEY_STR_ITEM]) {
+        [self.item setObject:self.currentTitle forKey:KEY_STR_TITLE];
+        [self.item setObject:self.currentLink  forKey:KEY_STR_LINK];
+        [self.item setObject:self.currentDescription forKey:KEY_STR_DESCRIPTION];
+        [self.item setObject:self.currentPubDate forKey:KEY_STR_PUBDATE];
         
         [self.items addObject:[self.item copy]];
-        NSLog(@"adding Item: %@", self.currentTitle);
+//        NSLog(@"adding Item: %@", self.currentTitle);
     }
-    
+}
+
+- (void)parserDidEndDocument:(NSXMLParser *)parser
+{
+    [self.tableView reloadData];
+    NSLog(@"APiOS parserDidEndDocument");
 }
 
 #pragma mark - UITableViewDataSource Methods
@@ -117,8 +115,8 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"itemsCell"];
     
     NSDictionary *item = self.items[indexPath.row];
-    cell.textLabel.text = (NSString *)[item objectForKey:@"title"];
-    cell.detailTextLabel.text = (NSString *)[item objectForKey:@"pubDate"];
+    cell.textLabel.text = (NSString *)[item objectForKey:KEY_STR_TITLE];
+    cell.detailTextLabel.text = (NSString *)[item objectForKey:KEY_STR_PUBDATE];
     return cell;
 }
 
@@ -126,7 +124,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSDictionary *item = self.items[indexPath.row];
-    NSString *urlString = (NSString *)[item objectForKey:@"link"];
+    NSString *urlString = (NSString *)[item objectForKey:KEY_STR_LINK];
     urlString = [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     
     NSLog(@"redirecting to URL: %@", urlString);

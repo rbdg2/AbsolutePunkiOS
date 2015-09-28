@@ -42,6 +42,7 @@
 		FD85ABAB1BB8C684009F766F /* AbsolutePunkiOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AbsolutePunkiOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD85ABB01BB8C684009F766F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FD85ABB11BB8C684009F766F /* AbsolutePunkiOSTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AbsolutePunkiOSTests.m; sourceTree = "<group>"; };
+		FD85ABBB1BB9097A009F766F /* KeyParser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KeyParser.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,6 +88,7 @@
 				FD85AB971BB8C684009F766F /* AppDelegate.m */,
 				FD85AB9C1BB8C684009F766F /* HomeTableViewController.h */,
 				FD85AB9D1BB8C684009F766F /* HomeTableViewController.m */,
+				FD85ABBB1BB9097A009F766F /* KeyParser.h */,
 				FD85AB9F1BB8C684009F766F /* Main.storyboard */,
 				FD85ABA21BB8C684009F766F /* Images.xcassets */,
 				FD85ABA41BB8C684009F766F /* LaunchScreen.xib */,
@@ -420,6 +422,7 @@
 				FD85ABB71BB8C684009F766F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		FD85ABB81BB8C684009F766F /* Build configuration list for PBXNativeTarget "AbsolutePunkiOSTests" */ = {
 			isa = XCConfigurationList;
@@ -428,6 +431,7 @@
 				FD85ABBA1BB8C684009F766F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
