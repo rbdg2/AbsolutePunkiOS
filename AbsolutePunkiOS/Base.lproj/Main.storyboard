@@ -17,7 +17,14 @@
                             <outlet property="delegate" destination="ezg-iW-mEY" id="Gkq-RM-Hp1"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="absolutepunk - News" id="LX9-HT-vhm"/>
+                    <navigationItem key="navigationItem" title="absolutepunk - News" id="LX9-HT-vhm">
+                        <barButtonItem key="leftBarButtonItem" systemItem="search" id="fGE-O2-Pf3">
+                            <color key="tintColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="r99-zc-DDM">
+                            <color key="tintColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pSL-OL-bcG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
