@@ -15,6 +15,9 @@
 		FD85ABA31BB8C684009F766F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FD85ABA21BB8C684009F766F /* Images.xcassets */; };
 		FD85ABA61BB8C684009F766F /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = FD85ABA41BB8C684009F766F /* LaunchScreen.xib */; };
 		FD85ABB21BB8C684009F766F /* AbsolutePunkiOSTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FD85ABB11BB8C684009F766F /* AbsolutePunkiOSTests.m */; };
+		FDC7283A1BB9118A0063BED1 /* APItemTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FDC728391BB9118A0063BED1 /* APItemTableViewCell.m */; };
+		FDC7283C1BB911C90063BED1 /* APItemTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FDC7283B1BB911C90063BED1 /* APItemTableViewCell.xib */; };
+		FDC728401BB912A20063BED1 /* APBaseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FDC7283F1BB912A20063BED1 /* APBaseTableViewCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,6 +46,11 @@
 		FD85ABB01BB8C684009F766F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FD85ABB11BB8C684009F766F /* AbsolutePunkiOSTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AbsolutePunkiOSTests.m; sourceTree = "<group>"; };
 		FD85ABBB1BB9097A009F766F /* KeyParser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KeyParser.h; sourceTree = "<group>"; };
+		FDC728381BB911680063BED1 /* APItemTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APItemTableViewCell.h; sourceTree = "<group>"; };
+		FDC728391BB9118A0063BED1 /* APItemTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APItemTableViewCell.m; sourceTree = "<group>"; };
+		FDC7283B1BB911C90063BED1 /* APItemTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = APItemTableViewCell.xib; sourceTree = "<group>"; };
+		FDC7283E1BB912960063BED1 /* APBaseTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APBaseTableViewCell.h; sourceTree = "<group>"; };
+		FDC7283F1BB912A20063BED1 /* APBaseTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APBaseTableViewCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +94,10 @@
 			children = (
 				FD85AB961BB8C684009F766F /* AppDelegate.h */,
 				FD85AB971BB8C684009F766F /* AppDelegate.m */,
+				FDC7283D1BB912750063BED1 /* Base Class */,
+				FDC728381BB911680063BED1 /* APItemTableViewCell.h */,
+				FDC728391BB9118A0063BED1 /* APItemTableViewCell.m */,
+				FDC7283B1BB911C90063BED1 /* APItemTableViewCell.xib */,
 				FD85AB9C1BB8C684009F766F /* HomeTableViewController.h */,
 				FD85AB9D1BB8C684009F766F /* HomeTableViewController.m */,
 				FD85ABBB1BB9097A009F766F /* KeyParser.h */,
@@ -122,6 +134,15 @@
 				FD85ABB01BB8C684009F766F /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		FDC7283D1BB912750063BED1 /* Base Class */ = {
+			isa = PBXGroup;
+			children = (
+				FDC7283E1BB912960063BED1 /* APBaseTableViewCell.h */,
+				FDC7283F1BB912A20063BED1 /* APBaseTableViewCell.m */,
+			);
+			name = "Base Class";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -207,6 +228,7 @@
 				FD85ABA11BB8C684009F766F /* Main.storyboard in Resources */,
 				FD85ABA61BB8C684009F766F /* LaunchScreen.xib in Resources */,
 				FD85ABA31BB8C684009F766F /* Images.xcassets in Resources */,
+				FDC7283C1BB911C90063BED1 /* APItemTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -224,8 +246,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FDC7283A1BB9118A0063BED1 /* APItemTableViewCell.m in Sources */,
 				FD85AB981BB8C684009F766F /* AppDelegate.m in Sources */,
 				FD85AB9B1BB8C684009F766F /* AbsolutePunkiOS.xcdatamodeld in Sources */,
+				FDC728401BB912A20063BED1 /* APBaseTableViewCell.m in Sources */,
 				FD85AB9E1BB8C684009F766F /* HomeTableViewController.m in Sources */,
 				FD85AB951BB8C684009F766F /* main.m in Sources */,
 			);

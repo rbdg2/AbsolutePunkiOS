@@ -9,6 +9,8 @@
 #import "HomeTableViewController.h"
 #import "KeyParser.h"
 
+#import "APItemTableViewCell.h"
+
 @interface HomeTableViewController () <NSXMLParserDelegate>
 @property (nonatomic, strong) NSMutableArray *items;
 
@@ -20,6 +22,9 @@
 @property (nonatomic, strong) NSMutableString *currentLink;
 @property (nonatomic, strong) NSMutableString *currentDescription;
 @property (nonatomic, strong) NSMutableString *currentPubDate;
+
+//APItemTableViewCell
+@property (nonatomic, assign) CGFloat heightForRow;
 @end
 
 @implementation HomeTableViewController
@@ -29,6 +34,7 @@
     [super viewDidLoad];
     
     [self parseXMLFileAtURL:[NSURL URLWithString:KEY_URL_RSS]];
+    
 }
 
 #pragma mark - NSXMLParser Method
@@ -112,15 +118,28 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"itemsCell"];
+    APItemTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:[APItemTableViewCell reuseIdentifier]];
+    
+    if (cell == nil) {
+        cell = [APItemTableViewCell loadNib];
+    }
     
     NSDictionary *item = self.items[indexPath.row];
-    cell.textLabel.text = (NSString *)[item objectForKey:KEY_STR_TITLE];
-    cell.detailTextLabel.text = (NSString *)[item objectForKey:KEY_STR_PUBDATE];
+    cell.titleLabel.text = (NSString *)[item objectForKey:KEY_STR_TITLE];
+    cell.subtitleLabel.text = (NSString *)[item objectForKey:KEY_STR_PUBDATE];
     return cell;
 }
 
 #pragma mark - UITableViewDelegate Methods
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (self.heightForRow == 0) {
+        APItemTableViewCell *cell = [APItemTableViewCell loadNib];
+        self.heightForRow = cell.frame.size.height;
+    }
+    
+    return self.heightForRow;
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSDictionary *item = self.items[indexPath.row];
