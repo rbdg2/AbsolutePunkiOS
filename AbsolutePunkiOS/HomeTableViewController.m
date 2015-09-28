@@ -42,9 +42,9 @@
     self.parser = [[NSXMLParser alloc] initWithContentsOfURL:url];
     [self.parser setDelegate:self];
     
-    [self.parser setShouldProcessNamespaces:NO];
-    [self.parser setShouldReportNamespacePrefixes:NO];
-    [self.parser setShouldResolveExternalEntities:NO];
+    [self.parser setShouldProcessNamespaces:YES];
+//    [self.parser setShouldReportNamespacePrefixes:NO];
+//    [self.parser setShouldResolveExternalEntities:NO];
     
     [self.parser parse];
 }
@@ -81,12 +81,14 @@
         [self.currentTitle appendString:string];
         
     } else if([self.currentElement isEqualToString:KEY_STR_LINK]) {
+        string = [string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         [self.currentLink appendString:string];
         
     } else if ([self.currentElement isEqualToString:KEY_STR_DESCRIPTION]) {
         [self.currentDescription appendString:string];
         
     } else if ([self.currentElement isEqualToString:KEY_STR_PUBDATE]) {
+        string = [string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         [self.currentPubDate appendString:string];
     }
 }
@@ -107,6 +109,8 @@
 - (void)parserDidEndDocument:(NSXMLParser *)parser
 {
     [self.tableView reloadData];
+    
+    NSLog(@"RB_DEBUG %@", self.items[0]);
     NSLog(@"APiOS parserDidEndDocument");
 }
 
@@ -126,7 +130,8 @@
     
     NSDictionary *item = self.items[indexPath.row];
     cell.titleLabel.text = (NSString *)[item objectForKey:KEY_STR_TITLE];
-    cell.subtitleLabel.text = (NSString *)[item objectForKey:KEY_STR_PUBDATE];
+    cell.dateLabel.text = (NSString *)[item objectForKey:KEY_STR_PUBDATE];
+    cell.descriptionLabel.text = (NSString *)[item objectForKeyedSubscript:KEY_STR_DESCRIPTION];
     return cell;
 }
 
@@ -144,7 +149,6 @@
 {
     NSDictionary *item = self.items[indexPath.row];
     NSString *urlString = (NSString *)[item objectForKey:KEY_STR_LINK];
-    urlString = [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     
     NSLog(@"redirecting to URL: %@", urlString);
   

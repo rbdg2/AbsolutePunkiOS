@@ -10,5 +10,6 @@
 
 @interface APItemTableViewCell : APBaseTableViewCell
 @property (nonatomic, strong) IBOutlet UILabel *titleLabel;
-@property (nonatomic, strong) IBOutlet UILabel *subtitleLabel;
+@property (nonatomic, strong) IBOutlet UILabel *descriptionLabel;
+@property (nonatomic, strong) IBOutlet UILabel *dateLabel;
 @end
